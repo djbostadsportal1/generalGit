@@ -34,9 +34,9 @@ class ImmonetSpider(scrapy.Spider):
                                  dont_filter=True,
                                  )
 
-        # next_page_url = response.xpath('//a[@class="col-sm-3 col-xs-1 pull-right text-right"]/@href').extract_first()
-        # next_page_url = response.urljoin(next_page_url)
-        # yield scrapy.Request(next_page_url, callback=self.parse, dont_filter=True)
+        next_page_url = response.xpath('//a[@class="col-sm-3 col-xs-1 pull-right text-right"]/@href').extract_first()
+        next_page_url = response.urljoin(next_page_url)
+        yield scrapy.Request(next_page_url, callback=self.parse, dont_filter=True)
 
     def parse_details(self, response):
         response.meta['Rooms'] = response.xpath('//span[@id="kfroomsValue"]/text()').re_first('\d+')
